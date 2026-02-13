@@ -1,4 +1,4 @@
-# Startrails
+# Startrails 🌌
 
 Generate startrail images and videos from a project's image sequence. The script guides you through selecting a project, choosing a frame range, optional compression, and output types (startrail image, startrail video, starmotion video), with optional Instagram-compatible outputs.
 
