@@ -235,15 +235,10 @@ def make_insta_versions(
 
 
 def main() -> int:
-    base_dir = Path("/project")
+    base_dir = Path("/projects")
     if not base_dir.exists():
-        alt = Path("projects")
-        if alt.exists() and alt.is_dir():
-            print("Base dir /project not found. Using ./projects instead.")
-            base_dir = alt
-        else:
-            print("Base directory not found:", base_dir)
-            return 1
+        print("Base directory not found:", base_dir)
+        return 1
 
     projects = list_projects(base_dir)
     project_name = prompt_for_project(projects)
