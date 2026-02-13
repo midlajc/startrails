@@ -129,7 +129,7 @@ def write_videos(
     image_files: list[Path],
     output_dir: Path,
     fps: int,
-    prefix: str,
+    suffix: str,
     make_startrail: bool,
     make_motion: bool,
 ):
@@ -142,11 +142,11 @@ def write_videos(
 
     if make_startrail:
         trail_video = cv2.VideoWriter(
-            str(output_dir / f"{prefix}star_trails.mp4"), fourcc, fps, (w, h)
+            str(output_dir / f"star_trails{suffix}.mp4"), fourcc, fps, (w, h)
         )
     if make_motion:
         motion_video = cv2.VideoWriter(
-            str(output_dir / f"{prefix}star_motion.mp4"), fourcc, fps, (w, h)
+            str(output_dir / f"star_motion{suffix}.mp4"), fourcc, fps, (w, h)
         )
 
     stack = None
@@ -168,13 +168,13 @@ def write_videos(
 
     if trail_video is not None:
         trail_video.release()
-        print("Video saved:", output_dir / f"{prefix}star_trails.mp4")
+        print("Video saved:", output_dir / f"star_trails{suffix}.mp4")
     if motion_video is not None:
         motion_video.release()
-        print("Video saved:", output_dir / f"{prefix}star_motion.mp4")
+        print("Video saved:", output_dir / f"star_motion{suffix}.mp4")
 
 
-def write_startrail_image(image_files: list[Path], output_dir: Path, prefix: str):
+def write_startrail_image(image_files: list[Path], output_dir: Path, suffix: str):
     stack = None
     for file in image_files:
         img = cv2.imread(str(file))
@@ -191,7 +191,7 @@ def write_startrail_image(image_files: list[Path], output_dir: Path, prefix: str
         return
 
     stack = cv2.GaussianBlur(stack, (3, 3), 0)  # ty:ignore[no-matching-overload]
-    out_path = output_dir / f"{prefix}star_trails.jpg"
+    out_path = output_dir / f"star_trails{suffix}.jpg"
     cv2.imwrite(str(out_path), stack)
     print("Image saved:", out_path)
 
@@ -222,13 +222,13 @@ def make_insta_versions(
         resized_files.append(dst)
 
     if make_image:
-        write_startrail_image(resized_files, output_dir, "insta_")
+        write_startrail_image(resized_files, output_dir, "_insta")
     if make_startrail or make_motion:
         write_videos(
             resized_files,
             output_dir,
             fps,
-            "insta_",
+            "_insta",
             make_startrail,
             make_motion,
         )
