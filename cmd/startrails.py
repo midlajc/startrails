@@ -190,7 +190,7 @@ def write_startrail_image(image_files: list[Path], output_dir: Path, suffix: str
         print("No readable images for startrail.")
         return
 
-    stack = cv2.GaussianBlur(stack, (3, 3), 0)  # ty:ignore[no-matching-overload]
+    stack = cv2.GaussianBlur(stack, (3, 3), 0)
     out_path = output_dir / f"star_trails{suffix}.jpg"
     cv2.imwrite(str(out_path), stack)
     print("Image saved:", out_path)
